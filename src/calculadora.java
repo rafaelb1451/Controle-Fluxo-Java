@@ -6,32 +6,50 @@ public class calculadora {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bem vindo a calculadora!");
-        System.out.println("Digite os valores e escolha a operação que deseja fazer.");
+        System.out.println("Deseja iniciar? S/N");
+        String opcao = scanner.next();
 
-        System.out.println("Digite o primeiro valor: ");
-        double valor1 = scanner.nextDouble();
+        while (opcao.equalsIgnoreCase("S")) {
+            System.out.print("Digite o primeiro valor: ");
+            double valor1 = scanner.nextDouble();
 
-        System.out.println("Digite o segundo valor: ");
-        double valor2 = scanner.nextDouble();
+            System.out.print("Digite o segundo valor: ");
+            double valor2 = scanner.nextDouble();
 
-        System.out.println("Escolha o tipo de operação (+, -, *, /): ");
-        String operacao = scanner.next();
+            System.out.print("Escolha a operação (+, -, *, /): ");
+            String operacao = scanner.next();
 
-        double resultado = 0;
+            double resultado = 0;
+            boolean valido = true;
 
-        if ("+".equals(operacao)) {
-            resultado = valor1 + valor2;
-        } else if("-".equals(operacao)) {
-            resultado = valor1 - valor2; 
-        } else if("*".equals(operacao)){
-            resultado = valor1 * valor2;
-        }else if("/".equals(operacao)){
-            resultado = valor1/valor2;
-        }else{
-            System.err.println("Operacao invalida " + operacao);
+            switch (operacao) {
+                case "+" -> resultado = valor1 + valor2;
+                case "-" -> resultado = valor1 - valor2;
+                case "*" -> resultado = valor1 * valor2;
+                case "/" -> {
+                    if (valor2 == 0) {
+                        System.out.println("Erro: não é possível dividir por zero.");
+                        valido = false;
+                    } else {
+                        resultado = valor1 / valor2;
+                    }
+                }
+                default -> {
+                    System.out.println("Operação inválida: " + operacao);
+                    valido = false;
+                }
+            }
+
+            if (valido) {
+                System.out.println("Resultado: " + resultado);
+            }
+
+            System.out.println("Deseja continuar? (S/N)");
+            opcao = scanner.next();
         }
 
-        System.out.println("Resultado da operação: " + resultado);
-
+        System.out.println("Encerrando a calculadora. Até logo!");
+        scanner.close();
     }
 }
+    
